@@ -14,7 +14,7 @@ def button_index(request):
         for choice in CHOICES:
             if request.POST['choice'] == choice[0]:
                 what_she_needs = choice[1]
-        send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,))
+        send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
         button_email()
     else:
         form = Form()
