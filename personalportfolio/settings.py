@@ -131,6 +131,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATICFILES_DIRS = [
    ("algorithms/img", os.path.join(BASE_DIR, "algorithms/img")),
+   ("button/img"), os.path.join(BASE_DIR, "button/img")
 ]
 
 CSRF_COOKIE_SECURE = True
