@@ -18,6 +18,15 @@
 
 <div class="container">
 <div class="vertical-center">
+  <form action="/button/" method="post" enctype="multipart/form-data")>
+      {% csrf_token %}
+      <div class="form-group">
+          {{ form.choice }}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 <a href="{% url 'button_email' %}" class="btn btn-primary">I need love and attention</a>
+<a href="{% url 'button_email' %}" class="btn btn-primary">I need chess</a>
+<a href="{% url 'button_email' %}" class="btn btn-primary">I need food and cuddles</a>
 </div>
 </div>

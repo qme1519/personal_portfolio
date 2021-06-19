@@ -1,12 +1,85 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
 
+from button.forms import Form
+from button.static_choices import CHOICES
+
+
+
 # Create your views here.
 def button_index(request):
     context = {}
+    if request.method == POST:
+        form = Form(request.POST)
+        for choice in range CHOICES:
+            if request.POST['choice'] == choice[0]:
+                what_she_needs = choice[1]
+        send_email(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,))
+        button_email()
+    else:
+        form = Form()
+        context = {'form':form}
     return render(request, "button_index.html", context)
 
 def button_email(request):
     context = {}
-    send_mail("Kamilka needs love and attention", "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
     return render(request, "send_email.html", context)
+
+# show the algorithm with all its properties and provide input form
+def algorithms_detail(request, pk):
+    algorithm = Algorithm.objects.get(pk=pk)
+    if request.method == "POST":
+        form = Form(request.POST)
+        # case: user choice
+        if request.POST['choice'] == 'csv':
+            if 'file' in request.POST:
+                dataInput='No csv file selected'
+            else:
+                try:
+                    # if it's a csv file, decode the binary file into a text encoding
+                    f = TextIOWrapper(request.FILES['file'].file, encoding=request.encoding)
+                    dataInput = csvInput(f)
+                except:
+                    dataInput = 'Invalid csv file selected. Could not decode.'
+        elif request.POST['choice'] == 'own':
+            if request.POST['description'] == '':
+                dataInput = 'Empty input'
+            else:
+                # use regular expressions to clean up user array input
+                dataInput = cleanUp(request.POST['description'])
+                if not dataInput:
+                    dataInput = "Input array contains non-numbers"
+                elif algorithm.title == 'Binary search':
+                    if dataInput != sorted(dataInput):
+                        dataInput = "Provided list is not sorted (binary search doesn't on unsorted lists)"
+                elif algorithm.title == 'Binary tree search':
+                    dataInput.sort()
+        elif request.POST['choice'] == 'random':
+            if request.POST['description'] == '':
+                dataInput = 'Empty input'
+            else:
+                # generate random array with user defined parameter
+                dataInput = randomArray(request.POST['description'])
+                if not dataInput:
+                    dataInput = "Invalid syntax; syntax: start, end, number of entries, e.g. -5, 5, 7"
+                elif algorithm.title in ('Binary search', 'Binary tree search'):
+                    dataInput.sort()
+        context = {'algorithm': algorithm}
+        if algorithm.purpose == 'Search':
+            # if it's a search algorithm, get the target element too
+            context['target'] = request.POST['target']
+            try:
+                context['target'] = int(context['target'])
+            except:
+                dataInput = 'Target is not an integer'
+        # change context and run different view depending on whether an error occured
+        if type(dataInput)==str:
+            context['error'] = dataInput
+            return algorithms_error(request, context)
+        else:
+            context['data'] = dataInput
+            return algorithms_result(request, context)
+    else:
+        form = Form()
+    context = {"algorithm": algorithm, 'form':form}
+    return render(request, "algorithms_detail.html", context)
