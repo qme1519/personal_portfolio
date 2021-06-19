@@ -17,7 +17,7 @@ def button_index(request):
         return button_email(request)
     else:
         random_number = random.randint(1,26)
-        photo_file_name = str(random_number) + ".png"
+        photo_file_name = "button/img/"+ str(random_number) + ".png"
         form = Form()
         context = {'form':form,
                     'filename': photo_file_name}
