@@ -14,13 +14,16 @@
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-ul {
-list-style: none;
+.custom-radio-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 </style>
 
 <div class="container">
 <div class="vertical-center">
+      <img src="{% static algorithm.image %}" alt="" width="100%">
   <form action="/button/" method="post" enctype="multipart/form-data")>
       {% csrf_token %}
       <div class="form-group">

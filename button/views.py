@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from django.core.mail import send_mail
+import random
 
 from button.forms import Form
 from button.static_choices import CHOICES
 
-
-
 # Create your views here.
 def button_index(request):
-    context = {}
+
     if request.method == "POST":
         form = Form(request.POST)
         for choice in CHOICES:
@@ -17,8 +16,11 @@ def button_index(request):
         send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
         return button_email(request)
     else:
+        random_number = random.randint(1,26)
+        photo_file_name = str(random_number) + ".png"
         form = Form()
-        context = {'form':form}
+        context = {'form':form,
+                    'filename', photo_file_name}
     return render(request, "button_index.html", context)
 
 def button_email(request):
