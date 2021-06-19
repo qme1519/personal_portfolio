@@ -9,7 +9,7 @@ from button.static_choices import CHOICES
 # Create your views here.
 def button_index(request):
     context = {}
-    if request.method == POST:
+    if request.method == "POST":
         form = Form(request.POST)
         for choice in CHOICES:
             if request.POST['choice'] == choice[0]:
