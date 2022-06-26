@@ -2,7 +2,7 @@ from django.shortcuts import render
 import random
 
 from button.forms import Form
-from button.static_choices import CHOICES, DESTINATIONS, ID_KAMILA, ID_JAKUB
+from button.static_choices import CHOICES, ID_JAKUB, INDEX_TO_ID
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -58,7 +58,7 @@ def button_index(request):
         form = Form(request.POST)
 
         # determine destination
-        destination = DESTINATIONS[int(request.POST['destination'])]
+        destination = INDEX_TO_ID[int(request.POST['destination'])]
         
         # determine message contents
         message = ''

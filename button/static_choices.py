@@ -9,6 +9,11 @@ CHOICES = [
 ]
 
 DESTINATIONS = [
-    ('0', ID_JAKUB),
-    ('1', ID_KAMILA),
+    ('0', 'Samiec aplha'),
+    ('1', 'Malutki bączuś pączuś'),
+]
+
+INDEX_TO_ID = [
+    ID_JAKUB, 
+    ID_KAMILA,
 ]
