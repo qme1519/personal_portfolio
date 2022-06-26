@@ -24,6 +24,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open('/etc/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
+with open('/etc/db_key.txt') as f:
+    DATABSE_PASSWORD = f.read().strip()
+
+with open('/etc/gmail_key.txt') as f:
+    EMAIL_HOST_PASSWORD = f.read().strip()
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -83,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'personalportfolio',
 	'USER': 'jakub',
-	'PASSWORD': '***REMOVED***',
+	'PASSWORD': DATABSE_PASSWORD,
 	'HOST': 'localhost',
 	'PORT': '',
     }
@@ -144,4 +150,3 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'jakubek.mi@gmail.com'
-EMAIL_HOST_PASSWORD = '***REMOVED***'
