@@ -17,8 +17,8 @@ ID_KAMILA = 0
 
 # ID: Jakub 24066, Kamila?
 def send_notification(title, message, id):
-	# with open('/etc/pushsafer_key.txt') as f:
-	#     PRIVATE_KEY = f.read().strip()
+	with open('/etc/pushsafer_key.txt') as f:
+	    PRIVATE_KEY = f.read().strip()
 
 	# random local image
     static_path = os.path.join(BASE_DIR, 'static/button/img/')
@@ -38,7 +38,7 @@ def send_notification(title, message, id):
 		"d" : 24066,
 		"u" : 'https://www.pushsafer.com',
 		"ut" : 'Open Pushsafer',
-		"k" : 'KJbfzUi2l2883WM174ES',
+		"k" : PRIVATE_KEY,
 		"p" : 'data:image/jpeg;base64,'+str(image_base.decode('ascii')),
 		}
 
