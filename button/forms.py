@@ -14,5 +14,9 @@ class Form(forms.Form):
             choices=CHOICES,
         )
     other = forms.CharField(
-        widget=forms.TextInput()
+        widget=forms.TextInput(
+            attrs={
+                'style': 'display: none', 
+            }
+        )
     )
