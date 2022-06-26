@@ -17,7 +17,7 @@ ID_KAMILA = 0
 
 # ID: Jakub 24066, Kamila?
 def send_notification(title, message, id):
-	with open('/etc/pushsafer_key.txt') as f:
+    with open('/etc/pushsafer_key.txt') as f:
 	    PRIVATE_KEY = f.read().strip()
 
 	# random local image
