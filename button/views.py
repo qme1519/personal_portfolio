@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.core.mail import send_mail
+from send_notification import send_notification
 import random
 
 from button.forms import Form
@@ -10,14 +10,15 @@ def button_index(request):
 
     if request.method == "POST":
         form = Form(request.POST)
+        message = ''
         if request.POST['choice'] == 'other':
-            what_she_needs = request.POST['other']
+            message = request.POST['other']
         else:
             for choice in CHOICES:
                 if request.POST['choice'] == choice[0]:
-                    what_she_needs = choice[1]
-        assert what_she_needs == 1
-        send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
+                    message = choice[1]
+        # send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
+        send_notification("Wiadomość od...", message, 'a')
         return button_email(request)
     else:
         random_number = random.randint(1,26)
