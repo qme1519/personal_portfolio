@@ -6,7 +6,11 @@ class Form(forms.Form):
     # radio buttons for choices
     choice = forms.ChoiceField(
             required=True,
-            widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}
+            widget=forms.RadioSelect(attrs={
+                'class': "custom-radio-list",
+                'onclick' : "ShowHideForms();",
+                'display': 'none',
+            }
             ),
             choices=CHOICES,
         )

@@ -22,16 +22,13 @@
 }
 </style>
 <script>
-  $("#id_other").hide();
-  $('#id_choice_3').click(function(){
-    if ($(this).is(':checked')){
-        $("#id_other").show();
+function yesnoCheck() {
+    if (document.getElementById('id_choice_3').checked) {
+        document.getElementById('id_other').style.display = 'block';
     }
-    else{
-         $("#id_other").html('');
-         $("#id_other").hide();
-    }
-});
+    else document.getElementById('id_other').style.display = 'none';
+
+}
 </script>
 <iframe src="https://free.timeanddate.com/countdown/i8e09qek/n48/cf104/cm0/cu4/ct0/cs0/ca0/cr0/ss0/cac000/cpc000/pc6d0000/tceac8d5/fs100/szw320/szh135/tatZnowu%20razem%20za/tac000/tptRazem%20od/tpc000/mac000/mpc000/iso2022-06-30T10:00:00" allowtransparency="true" frameborder="0" width="320" height="135"></iframe>
 <div class="container">
