@@ -18,5 +18,6 @@ class Form(forms.Form):
             attrs={
                 'style': 'display: none', 
             }
-        )
+        ),
+        required=False
     )
