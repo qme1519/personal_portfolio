@@ -1,5 +1,6 @@
 CHOICES = [
 ('love', 'Love and attention'),
 ('chess', 'Chess :)'),
-('food', 'Food and cuddles')
+('food', 'Food and cuddles'),
+('other', 'Other'),
 ]
