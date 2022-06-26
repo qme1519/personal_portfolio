@@ -9,9 +9,12 @@ class Form(forms.Form):
             widget=forms.RadioSelect(attrs={
                 'class': "custom-radio-list",
                 'onclick' : "ShowHideForms();",
-                'display': 'none',
             }
             ),
             choices=CHOICES,
         )
-    other = forms.CharField()
+    other = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'displaye': 'none',
+        })
+    )
