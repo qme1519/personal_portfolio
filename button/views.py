@@ -10,6 +10,8 @@ import base64
 import os
 import random
 
+from personalportfolio.settings import BASE_DIR
+
 ID_JAKUB = 24066
 ID_KAMILA = 0
 
@@ -19,13 +21,14 @@ def send_notification(title, message, id):
 	#     PRIVATE_KEY = f.read().strip()
 
 	# random local image
-	image_path = '../static/button/img/' + random.choice(os.listdir('../static/button/img'))
-	image = open(image_path, 'rb')
-	image_read = image.read()
-	image_base = base64.encodebytes(image_read)
+    static_path = os.path.join(BASE_DIR, 'static/button/img/')
+    image_name = random.choice(os.listdir(static_path))
+    image = open(os.path.join(static_path, image_name), 'rb')
+    image_read = image.read()
+    image_base = base64.encodebytes(image_read)
 
-	url = 'https://www.pushsafer.com/api'
-	post_fields = {
+    url = 'https://www.pushsafer.com/api'
+    post_fields = {
 		"t" : title,
 		"m" : message,
 		# "s" : '',
@@ -36,17 +39,17 @@ def send_notification(title, message, id):
 		"u" : 'https://www.pushsafer.com',
 		"ut" : 'Open Pushsafer',
 		"k" : 'KJbfzUi2l2883WM174ES',
-		# "p" : 'data:image/jpeg;base64,'+str(image_base.decode('ascii')),
+		"p" : 'data:image/jpeg;base64,'+str(image_base.decode('ascii')),
 		}
 
-	if id != ID_JAKUB:
-		post_fields['m'] = post_fields['m'] + " Wiesz że kocham cię bardziej??"
-		post_fields['a'] = 1 # enable answers
-		post_fields['ao'] = 'Tak|Tak|Tak'
+    if id != ID_JAKUB:
+	    post_fields['m'] = post_fields['m'] + " Wiesz że kocham cię bardziej??"
+	    post_fields['a'] = 1 # enable answers
+	    post_fields['ao'] = 'Tak|Tak|Tak'
 
-	request = Request(url, urlencode(post_fields).encode())
-	json = urlopen(request).read().decode()
-	print(json)
+    request = Request(url, urlencode(post_fields).encode())
+    json = urlopen(request).read().decode()
+    print(json)
 
 # Create your views here.
 def button_index(request):
