@@ -1,5 +1,5 @@
 from django import forms
-from button.static_choices import CHOICES
+from button.static_choices import CHOICES, DESTINATIONS
 
 # define form that user will complete
 class Form(forms.Form):
@@ -20,4 +20,11 @@ class Form(forms.Form):
             }
         ),
         required=False
+    )
+
+    destination = forms.ChoiceField(
+        required=True,
+        widget=forms.RadioSelect(
+            choices=DESTINATIONS
+        )
     )

@@ -2,7 +2,7 @@ from django.shortcuts import render
 import random
 
 from button.forms import Form
-from button.static_choices import CHOICES
+from button.static_choices import CHOICES, DESTINATIONS, ID_KAMILA, ID_JAKUB
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -12,8 +12,8 @@ import random
 
 from personalportfolio.settings import BASE_DIR
 
-ID_JAKUB = 24066
-ID_KAMILA = 0
+OTHER_INDEX = 3
+
 
 # ID: Jakub 24066, Kamila?
 def send_notification(title, message, id):
@@ -56,15 +56,19 @@ def button_index(request):
 
     if request.method == "POST":
         form = Form(request.POST)
+
+        # determine destination
+        destination = DESTINATIONS[int(request.POST['destination'])]
+        
+        # determine message contents
         message = ''
-        if request.POST['choice'] == 'other':
+        index = int(request.POST['choice'])
+        if index == OTHER_INDEX:
             message = request.POST['other']
         else:
-            for choice in CHOICES:
-                if request.POST['choice'] == choice[0]:
-                    message = choice[1]
+            message = CHOICES[index][1]
         # send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
-        send_notification("Wiadomość od...", message, 'a')
+        send_notification("Wiadomość od...", message, destination)
         return button_email(request)
     else:
         random_number = random.randint(1,26)
