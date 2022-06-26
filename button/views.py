@@ -1,9 +1,52 @@
 from django.shortcuts import render
-from send_notification import send_notification
 import random
 
 from button.forms import Form
 from button.static_choices import CHOICES
+
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+import base64
+import os
+import random
+
+ID_JAKUB = 24066
+ID_KAMILA = 0
+
+# ID: Jakub 24066, Kamila?
+def send_notification(title, message, id):
+	# with open('/etc/pushsafer_key.txt') as f:
+	#     PRIVATE_KEY = f.read().strip()
+
+	# random local image
+	image_path = '../static/button/img/' + random.choice(os.listdir('../static/button/img'))
+	image = open(image_path, 'rb')
+	image_read = image.read()
+	image_base = base64.encodebytes(image_read)
+
+	url = 'https://www.pushsafer.com/api'
+	post_fields = {
+		"t" : title,
+		"m" : message,
+		# "s" : '',
+		"v" : 3, # strong vibrations
+		"i" : 110, # person with heart icon
+		"c" : '#FF0000',
+		"d" : 24066,
+		"u" : 'https://www.pushsafer.com',
+		"ut" : 'Open Pushsafer',
+		"k" : 'KJbfzUi2l2883WM174ES',
+		# "p" : 'data:image/jpeg;base64,'+str(image_base.decode('ascii')),
+		}
+
+	if id != ID_JAKUB:
+		post_fields['m'] = post_fields['m'] + " Wiesz że kocham cię bardziej??"
+		post_fields['a'] = 1 # enable answers
+		post_fields['ao'] = 'Tak|Tak|Tak'
+
+	request = Request(url, urlencode(post_fields).encode())
+	json = urlopen(request).read().decode()
+	print(json)
 
 # Create your views here.
 def button_index(request):
@@ -31,62 +74,3 @@ def button_index(request):
 def button_email(request):
     context = {}
     return render(request, "send_email.html", context)
-
-# show the algorithm with all its properties and provide input form
-def algorithms_detail(request, pk):
-    algorithm = Algorithm.objects.get(pk=pk)
-    if request.method == "POST":
-        form = Form(request.POST)
-        # case: user choice
-        if request.POST['choice'] == 'csv':
-            if 'file' in request.POST:
-                dataInput='No csv file selected'
-            else:
-                try:
-                    # if it's a csv file, decode the binary file into a text encoding
-                    f = TextIOWrapper(request.FILES['file'].file, encoding=request.encoding)
-                    dataInput = csvInput(f)
-                except:
-                    dataInput = 'Invalid csv file selected. Could not decode.'
-        elif request.POST['choice'] == 'own':
-            if request.POST['description'] == '':
-                dataInput = 'Empty input'
-            else:
-                # use regular expressions to clean up user array input
-                dataInput = cleanUp(request.POST['description'])
-                if not dataInput:
-                    dataInput = "Input array contains non-numbers"
-                elif algorithm.title == 'Binary search':
-                    if dataInput != sorted(dataInput):
-                        dataInput = "Provided list is not sorted (binary search doesn't on unsorted lists)"
-                elif algorithm.title == 'Binary tree search':
-                    dataInput.sort()
-        elif request.POST['choice'] == 'random':
-            if request.POST['description'] == '':
-                dataInput = 'Empty input'
-            else:
-                # generate random array with user defined parameter
-                dataInput = randomArray(request.POST['description'])
-                if not dataInput:
-                    dataInput = "Invalid syntax; syntax: start, end, number of entries, e.g. -5, 5, 7"
-                elif algorithm.title in ('Binary search', 'Binary tree search'):
-                    dataInput.sort()
-        context = {'algorithm': algorithm}
-        if algorithm.purpose == 'Search':
-            # if it's a search algorithm, get the target element too
-            context['target'] = request.POST['target']
-            try:
-                context['target'] = int(context['target'])
-            except:
-                dataInput = 'Target is not an integer'
-        # change context and run different view depending on whether an error occured
-        if type(dataInput)==str:
-            context['error'] = dataInput
-            return algorithms_error(request, context)
-        else:
-            context['data'] = dataInput
-            return algorithms_result(request, context)
-    else:
-        form = Form()
-    context = {"algorithm": algorithm, 'form':form}
-    return render(request, "algorithms_detail.html", context)
