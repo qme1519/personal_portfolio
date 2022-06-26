@@ -24,7 +24,6 @@ class Form(forms.Form):
 
     destination = forms.ChoiceField(
         required=True,
-        widget=forms.RadioSelect(
-            choices=DESTINATIONS
-        )
+        widget=forms.RadioSelect(),
+        choices=DESTINATIONS,
     )
