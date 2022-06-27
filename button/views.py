@@ -2,7 +2,7 @@ from django.shortcuts import render
 import random
 
 from button.forms import Form
-from button.static_choices import CHOICES, ID_JAKUB, INDEX_TO_ID
+from button.static_choices import CHOICES, DESTINATIONS, ID_JAKUB, INDEX_TO_ID
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -58,7 +58,9 @@ def button_index(request):
         form = Form(request.POST)
 
         # determine destination
-        destination = INDEX_TO_ID[int(request.POST['destination'])]
+        destination_index = int(request.POST['destination'])
+        destination = INDEX_TO_ID[destination_index]
+        source = DESTINATIONS[1 - destination_index][1]
         
         # determine message contents
         message = ''
@@ -68,7 +70,7 @@ def button_index(request):
         else:
             message = CHOICES[index][1]
         # send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
-        send_notification("Wiadomość od...", message, destination)
+        send_notification("Wiadomość od " + source, message, destination)
         return button_email(request)
     else:
         random_number = random.randint(1,26)
