@@ -31,7 +31,7 @@ with open('/etc/gmail_key.txt') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.jakub-michalski.tech', '134.122.102.41', 'localhost']
 
