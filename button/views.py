@@ -70,7 +70,7 @@ def button_index(request):
         else:
             message = CHOICES[index][1]
         # send_mail(what_she_needs, "Napisz do niej :)", "me@jakub-michalski.tech", ["jakubek.mi@gmail.com"], fail_silently=False,)
-        send_notification("Wiadomość od " + source, message, destination)
+        send_notification("Uwaga!! " + source, message, destination)
         return button_email(request)
     else:
         random_number = random.randint(1,26)
