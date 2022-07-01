@@ -24,6 +24,9 @@ class Form(forms.Form):
 
     destination = forms.ChoiceField(
         required=True,
-        widget=forms.RadioSelect(),
+        widget=forms.RadioSelect(attrs={
+            'class': "custom-radio-list",
+        }
+        ),
         choices=DESTINATIONS,
     )
