@@ -35,7 +35,7 @@ def send_notification(title, message, id):
 		"v" : 3, # strong vibrations
 		"i" : 110, # person with heart icon
 		"c" : '#FF0000',
-		"d" : 24066,
+		"d" : id,
 		"u" : 'https://www.pushsafer.com',
 		"ut" : 'Open Pushsafer',
 		"k" : PRIVATE_KEY,
