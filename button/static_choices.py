@@ -1,5 +1,5 @@
 ID_JAKUB = 24066
-ID_KAMILA = 0
+ID_KAMILA = 55144
 
 CHOICES = [
     ('0', 'Love and attention'),
