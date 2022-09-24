@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "algorithms_base.html" %}
 {% load static %}
 {% block page_content %}
 <head>
@@ -6,7 +6,7 @@
 </head>
 <h1>Algorithms</h1>
 <div class="row">
-{% for algorithm in algorithms %}
+    {% for algorithm in algorithms %}
     <div class="col-md-4">
         <div class="card mb-2">
             <img class="card-img-top" src="{% static algorithm.image %}">

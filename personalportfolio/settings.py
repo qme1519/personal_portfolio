@@ -25,7 +25,7 @@ with open('/etc/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 with open('/etc/db_key.txt') as f:
-    DATABSE_PASSWORD = f.read().strip()
+    DATABASE_PASSWORD = f.read().strip()
 
 with open('/etc/gmail_key.txt') as f:
     EMAIL_HOST_PASSWORD = f.read().strip()
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'algorithms',
     'user_interface',
     'button',
+    'homepage',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'personalportfolio',
 	'USER': 'jakub',
-	'PASSWORD': DATABSE_PASSWORD,
+	'PASSWORD': DATABASE_PASSWORD,
 	'HOST': 'localhost',
 	'PORT': '',
     }
@@ -138,6 +139,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
    ("algorithms/img", os.path.join(BASE_DIR, "algorithms/img")),
    ("button/img", os.path.join(BASE_DIR, "button/img")),
+   ("homepage/img", os.path.join(BASE_DIR, "homepage/img")),
+   ("homepage/PDF", os.path.join(BASE_DIR, "homepage/PDF")),
 ]
 
 CSRF_COOKIE_SECURE = True

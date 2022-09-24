@@ -49,7 +49,6 @@ def send_notification(title, message, id):
 
     request = Request(url, urlencode(post_fields).encode())
     json = urlopen(request).read().decode()
-    print(json)
 
 # Create your views here.
 def button_index(request):

@@ -3,7 +3,7 @@ from . import views
 
 # define url addresses to be used in the project
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('', views.index, name="converter_index"),
     path("<type>/", views.conversion_types, name="conversion_types"),
     path("<type>/accounts/<pk>", views.conversion_types, name="conversion_types_history"),
     path('accounts/signup/', views.signup_view, name="signup_view"),

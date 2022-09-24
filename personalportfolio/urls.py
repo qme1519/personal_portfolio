@@ -21,4 +21,5 @@ urlpatterns = [
     path('algorithms/', include("algorithms.urls")),
     path('converter/', include("user_interface.urls")),
     path('button/', include("button.urls")),
+    path('', include("homepage.urls")),
 ]
