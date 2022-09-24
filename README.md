@@ -1,5 +1,5 @@
 # personal_portfolio
-Repository for my personal portfolio website written in Django. Currently contains 2 projects:
+Repository for my personal portfolio website written in Django with Bootstrap, available [here](https://jakub-michalski.tech "TMy personal portfolio"). Currently contains 2 projects:
 
 ## Visualisation sorting and searching algorithms
 A collection of some of the most popular sorting and searching algorithms, visualised. The visualisation will take you through each step that the algorithm did to help you understand it
